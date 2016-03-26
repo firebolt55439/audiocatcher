@@ -42,7 +42,8 @@ function stop() {
 
 function deal(blob) {
     var url = URL.createObjectURL(blob);
-    dgid("test").textContent = url;
+    var link = dgid("downlink")
+    sa(link, "href", url);
 }
 
 function upload(event) {
