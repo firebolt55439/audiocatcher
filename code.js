@@ -68,21 +68,23 @@ function upload(event) {
     file = input.files[0];
     console.log(file.lastModifiedDate);
 }
-function click(){
-
+function click(e){
+    e.preventDefault();
+    console.log(file);
+    var form = $('form.iden')[0];
+    var formData = new FormData(form);
     $.ajax({
-    url: 'http://10.21.86.220:8081/file.mp3',
-    data: $('#file').attr('files'),
-    cache: false,
-    contentType: 'multipart/form-data',
-    processData: false,
-    type: 'POST',
-    success: function(data){
-        alert(data);
-    }
-});
-
-
+        url: 'http://10.21.86.220:8082/file.mp3',
+        data: formData,
+        contentType: false,
+        processData: false,
+        cache: false,
+        type: 'POST',
+        success: function(data){
+            alert(data);
+        }
+    });
+    return false;
 }
 
 

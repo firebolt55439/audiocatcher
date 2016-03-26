@@ -70,17 +70,29 @@
             <div class="row content">
                 
                 <div class="col-sm-8 text-left">
-                    <h1>Audio Catcher</h1>
-                    <p>Audio Catcher is a utility for identifying audio files. You can use it to detect plagiarism or copyright infringement.</p>
+                    <h1>Welcome!</h1>
+                    <p>You can upload your the audio file you want to test here.</p>
                     <hr>
-                    <h5>Choose an audio file to scan:</h5>
-                    <form method='post' action = 'submit.php'>
-                        <input type="file" accept".mp3" onchange='upload(event)' value="Upload Audio File">
-
+                    <h3>About</h3>
+                    <p>A copyright/plagiarism detector for music, trained on over 200 hits of the last 10 years.</p>
+                    <h3>Learning</h3>
+                    <h5>Teach the machine (train it on) a new song.</h5>
+                    <form method='POST' enctype="multipart/form-data" action='http://10.21.86.220:8082/file.mp3'>
+                    	<div class="form-group">
+                    		<label for="upfile">Select audio file:</label>
+                        	<input name="upfile" type="file" accept=".mp3" onchange='upload(event)' class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Train!</button>
                     </form>
-
-                    <button onclick="click" > Submit</button> 
-                    
+                    <h3>Identification</h3>
+                    <h5>Choose an audio file to identify (can identify any portion of any learned song):</h5>
+                    <form method='POST' enctype="multipart/form-data" action='http://10.21.86.220:8082/file.mp3' class="iden">
+                    	<div class="form-group">
+                    		<label for="upfile">Select audio file:</label>
+                        	<input name="upfile" type="file" accept=".mp3" onchange='upload(event)' class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary" value="Submit!" onclick"click(); return false;">Submit!</button>
+                    </form>
                     <h5>Record up to 8 seconds of audio</h5>
                     <p>Warning: experimental technology. You will need to convert to MP3 afterward.</p>
                     <button id="record" onclick="record()" class="show"> Record</button>
@@ -90,7 +102,7 @@
                     <!--<button onclick="upload(event)" >Upload audio file</button> -->
 
                     <h3>Members</h3>
-                    <p>Akhil Arun, Praveen Batra, Vijay Bharadwaj, Shreyas Chandrashekar, Sumer Kohli</p>
+                    <p>Akhil A., Praveen B., Vijay B., Shreyas C., and Sumer K.</p>
                 </div>
                 
             </div>
