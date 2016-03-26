@@ -41,7 +41,6 @@ function stop() {
     dsa("downlink", "class", "show");
     recorder.stop();
     recorder.exportWAV(deal);
-    worker.onmessage = function(e)
 }
 
 function deal(blob) {
