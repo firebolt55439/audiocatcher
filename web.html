@@ -93,12 +93,12 @@
                         </div>
                         <button type="submit" class="btn btn-primary" value="Submit!" onclick"click(); return false;">Submit!</button>
                     </form>
-                    <h5>Record up to 8 seconds of audio</h5>
-                    <p>Warning: experimental technology. You will need to convert to MP3 afterward.</p>
+                    <h5>Record audio</h5>
+                    <p>Warning: experimental technology generates 5 second snippets of audio. You will need to convert to MP3 afterward.</p>
                     <button id="record" onclick="record()" class="show"> Record</button>
                     <video id="loading" src="Anim.m4v" loop="true" autoplay="true" autostart="true" class="hide"></video>
                     <button id="stop" onclick="stop()" class="hide"> Stop recording</button>
-                    <a id="downlink" class="hide" onclick="showFile()">Play audio</a>
+                    <p id="downlink" onclick="showFile()"></a>
                     <!--<button onclick="upload(event)" >Upload audio file</button> -->
 
                     <h3>Members</h3>

@@ -23,17 +23,22 @@ function dsa(a, b, c) {
 }
 
 var file;
+var dstream;
 
 function record() {
     dsa("record", "class", "hide");
     dsa("stop", "class", "show");
     dsa("loading", "class", "show")
+    dsa("downlink", "class", "show");
+    var ig = dgid("downlink");
+    while (ig.firstChild) ig.removeChild(ig.firstChild);
     context = new AudioContext();
     isRecording = true;
     var promise = navigator.mediaDevices.getUserMedia({audio: true, video: false});
     promise.then(function (stream) {
+                 dstream = stream;
                  recorder = new Recorder(context.createMediaStreamSource(stream));
-                 setTimeout(stop, 10000);
+                 setTimeout(cycle, 5000);
                  recorder.record();
                  })
     
@@ -46,20 +51,33 @@ function stop() {
         dsa("stop", "class", "hide");
         dsa("downlink", "class", "show");
         dsa("loading", "class", "hide")
+        dsa("record", "class", "show");
         recorder.stop();
         recorder.exportWAV(deal);
+        recorder.clear();
     }
+}
+
+function cycle() {
+    if (!isRecording) {return}
+    recorder.stop();
+    recorder.exportWAV(deal);
+    recorder.clear();
+    context = new AudioContext();
+    isRecording = true;
+     recorder = new Recorder(context.createMediaStreamSource(dstream));
+     setTimeout(cycle, 5000);
+    recorder.record();
 }
 
 function deal(blob) {
     var url = URL.createObjectURL(blob);
     var link = dgid("downlink")
-    sa(link, "href", url);
-}
-
-function showFile() {
-    dsa("downlink", "class", "hide");
-    dsa("record", "class", "show");
+    var a = document.createElement("a");
+    sa(a, "href", url);
+    a.textContent = "A new snippet was generated"
+    link.appendChild(a);
+    link.appendChild(document.createElement("br"));
 }
 
 function upload(event) {
