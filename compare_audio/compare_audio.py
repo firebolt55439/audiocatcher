@@ -133,8 +133,8 @@ if __name__ == '__main__':
 		except OSError: pass
 		try: os.unlink(MAP_FNAME)
 		except OSError: pass
-		learn_song('test1.mp3', "FOB - My Songs Know What You Did In The Dark")
-		identify_audio('test1.mp3')
+		#learn_song('test1.mp3', "FOB - My Songs Know What You Did In The Dark")
+		#identify_audio('test1.mp3')
 		#identify_audio('test1.mp3')
 	
 		# Now teach it songs for real.
