@@ -41,35 +41,7 @@ function stop() {
     dsa("downlink", "class", "show");
     recorder.stop();
     recorder.exportWAV(deal);
-    worker.onmessage = function(e){
-var blob = e.data;
-//console.log("the blob " + blob + " " + blob.size + " " + blob.type);
- 
-var arrayBuffer;
-var fileReader = new FileReader();
- 
-fileReader.onload = function(){
-arrayBuffer = this.result;
-var buffer = new Uint8Array(arrayBuffer),
-data = parseWav(buffer);
- 
-console.log(data);
-console.log("Converting to Mp3");
-log.innerHTML += "n" + "Converting to Mp3";
- 
-encoderWorker.postMessage({ cmd: 'init', config:{
-mode : 3,
-channels:1,
-samplerate: data.sampleRate,
-bitrate: data.bitsPerSample
-}});
- 
-encoderWorker.postMessage({ cmd: 'encode', buf: Uint8ArrayToFloat32Array(data.samples) });
-encoderWorker.postMessage({ cmd: 'finish'});
-encoderWorker.onmessage = function(e) {
-if (e.data.cmd == 'data') {
- 
-console.log("Done converting to Mp3");
+    worker.onmessage = function(e)
 }
 
 function deal(blob) {
