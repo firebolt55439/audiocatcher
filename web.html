@@ -57,10 +57,9 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Project</a></li>
-                        <li><a href="#">Members</a></li>
+                        <li class="active"><a href="web.html">Home</a></li>
+                        <li><a href="web2.html">About</a></li>
+                        <li><a href="web3.html">Members</a></li>
                     </ul>
                     
                 </div>
@@ -71,12 +70,9 @@
             <div class="row content">
                 
                 <div class="col-sm-8 text-left">
-                    <h1>Welcome!</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <h1>Audio Catcher</h1>
+                    <p>Audio Catcher is a utility for identifying audio files. You can use it to detect plagiarism or copyright infringement.</p>
                     <hr>
-                    <h3>About</h3>
-                    <p>Lorem ipsum...</p>
-                    <h3>Project</h3>
                     <h5>Choose an audio file to scan:</h5>
                     <form method='post' action = 'submit.php'>
                         <input type="file" accept".mp3" onchange='upload(event)' value="Upload Audio File">
@@ -85,9 +81,10 @@
 
                     <button onclick="click" > Submit</button> 
                     
-                    <h5>Record your own audio</h5>
+                    <h5>Record up to 8 seconds of audio</h5>
                     <p>Warning: experimental technology. You will need to convert to MP3 afterward.</p>
                     <button id="record" onclick="record()" class="show"> Record</button>
+                    <video id="loading" src="Anim.m4v" loop="true" autoplay="true" autostart="true" class="hide"></video>
                     <button id="stop" onclick="stop()" class="hide"> Stop recording</button>
                     <a id="downlink" class="hide" onclick="showFile()">Play audio</a>
                     <!--<button onclick="upload(event)" >Upload audio file</button> -->
