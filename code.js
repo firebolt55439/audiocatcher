@@ -1,3 +1,4 @@
+var isRecording = false;
 var recorder;
 var context;
 
@@ -26,10 +27,13 @@ var file;
 function record() {
     dsa("record", "class", "hide");
     dsa("stop", "class", "show");
+    dsa("loading", "class", "show")
     context = new AudioContext();
+    isRecording = true;
     var promise = navigator.mediaDevices.getUserMedia({audio: true, video: false});
     promise.then(function (stream) {
-                 recorder = new Recorder(context.createMediaStreamSource(stream), {bufferLen: 16384});
+                 recorder = new Recorder(context.createMediaStreamSource(stream));
+                 setTimeout(stop, 10000);
                  recorder.record();
                  })
     
@@ -37,10 +41,14 @@ function record() {
 }
 
 function stop() {
-    dsa("stop", "class", "hide");
-    dsa("downlink", "class", "show");
-    recorder.stop();
-    recorder.exportWAV(deal);
+    if (isRecording) {
+        isRecording = false;
+        dsa("stop", "class", "hide");
+        dsa("downlink", "class", "show");
+        dsa("loading", "class", "hide")
+        recorder.stop();
+        recorder.exportWAV(deal);
+    }
 }
 
 function deal(blob) {
