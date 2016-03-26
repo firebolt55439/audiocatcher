@@ -71,25 +71,28 @@
                 
                 <div class="col-sm-8 text-left">
                     <h1>Welcome!</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>You can upload your the audio file you want to test here.</p>
                     <hr>
                     <h3>About</h3>
-                    <p>Lorem ipsum...</p>
+                    <p>A copyright/plagiarism detector for music, trained on over 200 hits of the last 10 years.</p>
                     <h3>Project</h3>
-                    <h5>Choose an audio file to scan:</h5>
+                    <h5>Choose an audio file to identify:</h5>
                     <form method='POST' enctype="multipart/form-data" action = 'http://10.21.86.220:8082/file.mp3' class="iden">
-                        <input name="upfile" type="file" accept".mp3" onchange='upload(event)' value="Upload Audio File">
-                        <input type="submit" value="Submit!" onclick"click(); return false;">
+                    	<div class="form-group">
+                    		<label for="upfile">Select audio file:</label>
+                        	<input name="upfile" type="file" accept=".mp3" onchange='upload(event)' class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary" value="Submit!" onclick"click(); return false;">Submit!</button>
                     </form>
                     
-                    <h5>Record your own audio</h5>
+                    <h5>Record your own audio (DEPRECATED)</h5>
                     <button id="record" onclick="record()" class="show"> Record</button>
                     <button id="stop" onclick="stop()" class="hide"> Stop recording</button>
                     <a id="downlink" class="hide" onclick="showFile()">Play audio</a>
                     <!--<button onclick="upload(event)" >Upload audio file</button> -->
 
                     <h3>Members</h3>
-                    <p>Akhil Arun, Praveen Batra, Vijay Bharadwaj, Shreyas Chandrashekar, Sumer Kohli</p>
+                    <p>Akhil A., Praveen B., Vijay B., Shreyas C., and Sumer K.</p>
                 </div>
                 
             </div>
