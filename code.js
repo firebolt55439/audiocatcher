@@ -1,89 +1,47 @@
-importScripts("WavAudioEncoder.min.js");
+<html>
+    	<body>
+    		<audio controls autoplay></audio>
+    		<script type="text/javascript" src="recorder.js"> </script>
+                    <fieldset><legend>RECORD AUDIO</legend>
+    		<input onclick="startRecording()" type="button" value="start recording" />
+    		<input onclick="stopRecording()" type="button" value="stop recording and play" />
+                    </fieldset>
+    		<script>
+    			var onFail = function(e) {
+    				console.log('Rejected!', e);
+    			};
 
-var sampleRate = 44100,
-    numChannels = 2,
-    options = undefined,
-    maxBuffers = undefined,
-    encoder = undefined,
-    recBuffers = undefined,
-    bufferCount = 0;
+    			var onSuccess = function(s) {
+    				var context = new webkitAudioContext();
+    				var mediaStreamSource = context.createMediaStreamSource(s);
+    				recorder = new Recorder(mediaStreamSource);
+    				recorder.record();
 
-function error(message) {
-  self.postMessage({ command: "error", message: "wav: " + message });
-}
+    				// audio loopback
+    				// mediaStreamSource.connect(context.destination);
+    			}
 
-function init(data) {
-  sampleRate = data.config.sampleRate;
-  numChannels = data.config.numChannels;
-  options = data.options;
-};
+    			window.URL = window.URL || window.webkitURL;
+    			navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
-function setOptions(opt) {
-  if (encoder || recBuffers)
-    error("cannot set options during recording");
-  else
-    options = opt;
-}
+    			var recorder;
+    			var audio = document.querySelector('audio');
 
-function start(bufferSize) {
-  maxBuffers = Math.ceil(options.timeLimit * sampleRate / bufferSize);
-  if (options.encodeAfterRecord)
-    recBuffers = [];
-  else
-    encoder = new WavAudioEncoder(sampleRate, numChannels);
-}
+    			function startRecording() {
+    				if (navigator.getUserMedia) {
+    					navigator.getUserMedia({audio: true}, onSuccess, onFail);
+    				} else {
+    					console.log('navigator.getUserMedia not present');
+    				}
+    			}
 
-function record(buffer) {
-  if (bufferCount++ < maxBuffers)
-    if (encoder)
-      encoder.encode(buffer);
-    else
-      recBuffers.push(buffer);
-  else
-    self.postMessage({ command: "timeout" });
-};
-
-function postProgress(progress) {
-  self.postMessage({ command: "progress", progress: progress });
-};
-
-function finish() {
-  if (recBuffers) {
-    postProgress(0);
-    encoder = new WavAudioEncoder(sampleRate, numChannels);
-    var timeout = Date.now() + options.progressInterval;
-    while (recBuffers.length > 0) {
-      encoder.encode(recBuffers.shift());
-      var now = Date.now();
-      if (now > timeout) {
-        postProgress((bufferCount - recBuffers.length) / bufferCount);
-        timeout = now + options.progressInterval;
-      }
-    }
-    postProgress(1);
-  }
-  self.postMessage({
-    command: "complete",
-    blob: encoder.finish(options.wav.mimeType)
-  });
-  cleanup();
-};
-
-function cleanup() {
-  encoder = recBuffers = undefined;
-  bufferCount = 0;
-}
-
-self.onmessage = function(event) {
-  var data = event.data;
-  switch (data.command) {
-    case "init":    init(data);                 break;
-    case "options": setOptions(data.options);   break;
-    case "start":   start(data.bufferSize);     break;
-    case "record":  record(data.buffer);        break;
-    case "finish":  finish();                   break;
-    case "cancel":  cleanup();
-  }
-};
-
-self.postMessage({ command: "loaded" });
+    			function stopRecording() {
+    				recorder.stop();
+    				recorder.exportWAV(function(s) {
+                                
+                                 	audio.src = window.URL.createObjectURL(s);
+    				});
+    			}
+    		</script>
+    	</body>
+    </html>
