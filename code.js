@@ -3,9 +3,9 @@ function record() {
 var recorder = new Recorder(source [, config])  
 recorder.record();
 recorder.stop();
-recorder.exportWAV([callback][, type])
+recorder.exportWAV(this.config.callback(),WAV)
   recorder.encodeAfterRecorder();
-  Recorder.forceDownload(blob[, filename])
+  Recorder.forceDownload(blob, output)
   
 });
 }
