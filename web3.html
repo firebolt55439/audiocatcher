@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Audio Catcher</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+            <script src = "code.js"></script>
+            <script src = "recorderjs/recorder.js"></script>
+            
+            <style>
+                /* Remove the navbar's default margin-bottom and rounded borders */
+                .navbar {
+                    margin-bottom: 0;
+                    border-radius: 0;
+                }
+            
+            /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+            .row.content {height: 450px}
+            
+            /* Set gray background color and 100% height */
+            .sidenav {
+                padding-top: 20px;
+                background-color: #f1f1f1;
+                height: 100%;
+            }
+            
+            /* Set black background color, white text and some padding */
+            footer {
+                background-color: #555;
+                color: white;
+                padding: 15px;
+            }
+            
+            /* On small screens, set height to 'auto' for sidenav and grid */
+            @media screen and (max-width: 767px) {
+                .sidenav {
+                    height: auto;
+                    padding: 15px;
+                }
+                .row.content {height:auto;}
+            }
+            </style>
+            </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Audio Catcher</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Project</a></li>
+                        <li><a href="#">Members</a></li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container-fluid text-center">
+            <div class="row content">
+                
+                <div class="col-sm-8 text-left">
+                    <h1>Welcome!</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <hr>
+                    <h3>About</h3>
+                    <p>Lorem ipsum...</p>
+                    <h3>Project</h3>
+                    <h5>Choose an audio file to scan:</h5>
+                    <form method='post' action = 'submit.php'>
+                        <input type="file" accept".mp3" onchange='upload(event)' value="Upload Audio File">
+
+                    </form>
+
+                    <button onclick="click" > Submit</button> 
+                    
+                    <h5>Record your own audio</h5>
+                    <button id="record" onclick="record()" class="show"> Record</button>
+                    <button id="stop" onclick="stop()" class="hide"> Stop recording</button>
+                    <a id="downlink" class="hide" onclick="showFile()">Play audio</a>
+                    <!--<button onclick="upload(event)" >Upload audio file</button> -->
+
+                    <h3>Members</h3>
+                    <p>Akhil Arun, Praveen Batra, Vijay Bharadwaj, Shreyas Chandrashekar, Sumer Kohli</p>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+    </body>
+    
+    <!--
+     
+     Libraries used:
+     
+     Echoprint
+     
+     RecorderJS
+     https://github.com/mattdiamond/Recorderjs
+     License (MIT)
+     Copyright © 2013 Matt Diamond
+     Also Bootstrap is also under MIT license
+     Permission is hereby granted, free of charge, to any person obtaining
+     a copy of this software and associated documentation files (the "Software"),
+     to deal in the Software without restriction, including without limitation
+     the rights to use, copy, modify, merge, publish, distribute,
+     sublicense, and/or sell copies of the Software,
+     and to permitpersons to whom the Software is furnished to do so, subject to the
+     following conditions: The above copyright notice and this permission notice
+     shall be included in all copies or substantial portions of the Software.
+     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+     BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+     AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+     
+     -->
