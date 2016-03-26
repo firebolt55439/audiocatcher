@@ -1,5 +1,5 @@
 var stoprec;
-
+var file;
 function record() {
     var context = window.audioContext || window.webkitAudioContext;
     var promise = navigator.mediaDevices.getUserMedia({audio: true, video: false});
@@ -25,7 +25,14 @@ function stoprecord() {
     stoprec();
 }
 
-function upload() {}
+function upload(event) {
+    var input = event.target;
+
+    file = input.files[0];
+    console.log(file.lastModifiedDate);
+}
+function click(){}
+
 
 function soundcloud() {}
 
