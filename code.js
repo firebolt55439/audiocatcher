@@ -44,7 +44,6 @@ function stop() {
 }
 
 function deal(blob) {
-    file = blob;
     var url = URL.createObjectURL(blob);
     var link = dgid("downlink")
     sa(link, "href", url);
