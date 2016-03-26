@@ -1,12 +1,18 @@
 function record() {
-    console.log("hellow")
-	var context = window.audioContext() || window.webkitAudioContext();
-    var recorder = new Recorder(source , this.config);
-    recorder.record();
-    recorder.stop();
-    recorder.exportWAV(this.config.callback(), WAV)
-    recorder.encodeAfterRecorder();
-    Recorder.forceDownload(blob, output)
+    var context = window.audioContext || window.webkitAudioContext;
+    var promise = navigator.mediaDevices.getUserMedia({audio: true, video: false});
+    var source;
+    promise.then(function (stream) {
+                 var recorder = new Recorder(stream, this.config);
+                 var media = navigator.mediaDevices.getUserMedia();
+                 recorder.record();
+                 recorder.stop();
+                 recorder.exportWAV(this.config.callback(), WAV)
+                 recorder.encodeAfterRecorder();
+                 Recorder.forceDownload(blob, output)
+                 })
+    
+    promise.catch(function (error) { console.log("smth wnt wrng wit get mic") }); //Mozeela
 }
 
 function upload() {}
