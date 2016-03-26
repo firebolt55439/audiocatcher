@@ -1,3 +1,4 @@
-:hover {
-    -webkit-filter : sepia(60%);
+.clickable:active {
+    filter : blur(3px);
 }
+
