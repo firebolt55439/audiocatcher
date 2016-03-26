@@ -1,4 +1,4 @@
 .clickable:active {
-    filter : blur(3px);
+    filter : invert(100%);
 }
 
