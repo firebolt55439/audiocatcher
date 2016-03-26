@@ -29,7 +29,7 @@ function record() {
     context = new AudioContext();
     var promise = navigator.mediaDevices.getUserMedia({audio: true, video: false});
     promise.then(function (stream) {
-                 recorder = new Recorder(context.createMediaStreamSource(stream));
+                 recorder = new Recorder(context.createMediaStreamSource(stream), {bufferLen: 16384});
                  recorder.record();
                  })
     
