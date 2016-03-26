@@ -1,3 +1,4 @@
+
 var recorder;
 var context;
 
@@ -21,6 +22,8 @@ function dsa(a, b, c) {
     sa(dgid(a), b, c);
 }
 
+var file;
+
 function record() {
     context = new AudioContext();
     var promise = navigator.mediaDevices.getUserMedia({audio: true, video: false});
@@ -42,7 +45,14 @@ function deal(blob) {
     dgid("test").textContent = url;
 }
 
-function upload() {}
+function upload(event) {
+    var input = event.target;
+
+    file = input.files[0];
+    console.log(file.lastModifiedDate);
+}
+function click(){}
+
 
 function soundcloud() {}
 
