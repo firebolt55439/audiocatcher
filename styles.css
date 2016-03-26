@@ -2,3 +2,10 @@
     filter : invert(100%);
 }
 
+.hide {
+    visibility : hidden;
+}
+
+.show {
+    visibility : visible;
+}

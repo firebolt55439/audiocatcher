@@ -72,7 +72,6 @@
                 
                 <div class="col-sm-8 text-left">
                     <h1>Welcome!</h1>
-                    <a id="downlink">HELLO WORLD</a>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     <hr>
                     <h3>About</h3>
@@ -84,14 +83,13 @@
                     <button onclick="click" > Submit</button> 
                     
                     <h5>Record your own audio</h5>
-                    <button onclick="record()" > Record Audio</button> 
-                    
-
-                    <button onclick="stop()"> Stop recording audio </button>
+                    <button id="record" onclick="record()" class="show"> Record</button>
+                    <button id="stop" onclick="stop()" class="hide"> Stop recording</button>
+                    <a id="downlink" class="hide" onclick="showFile()">Play audio</a>
                     <!--<button onclick="upload(event)" >Upload audio file</button> -->
 
                     <h3>Members</h3>
-                    <p>Akhil Arun, Praveen Batra, Vijay Bharadwaj, Shreyass Chandrashakeitoff, Sumer Kohli</p>
+                    <p>Akhil Arun, Praveen Batra, Vijay Bharadwaj, Shreyas Chandrashekar, Sumer Kohli</p>
                 </div>
                 
             </div>

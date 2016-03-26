@@ -1,4 +1,3 @@
-
 var recorder;
 var context;
 
@@ -25,6 +24,8 @@ function dsa(a, b, c) {
 var file;
 
 function record() {
+    dsa("record", "class", "hide");
+    dsa("stop", "class", "show");
     context = new AudioContext();
     var promise = navigator.mediaDevices.getUserMedia({audio: true, video: false});
     promise.then(function (stream) {
@@ -36,14 +37,22 @@ function record() {
 }
 
 function stop() {
+    dsa("stop", "class", "hide");
+    dsa("downlink", "class", "show");
     recorder.stop();
     recorder.exportWAV(deal);
 }
 
 function deal(blob) {
+    file = blob;
     var url = URL.createObjectURL(blob);
     var link = dgid("downlink")
     sa(link, "href", url);
+}
+
+function showFile() {
+    dsa("downlink", "class", "hide");
+    dsa("record", "class", "show");
 }
 
 function upload(event) {
