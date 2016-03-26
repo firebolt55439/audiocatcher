@@ -123,6 +123,15 @@ class StoreHandler(BaseHTTPRequestHandler):
 			self.send_header('Content-type', 'text/json')
 			self.end_headers()
 			self.wfile.write(json.dumps(identify_audio("file.mp3")))
+		elif self.path == '/learn':
+			self.send_response(200)
+			self.send_header('Content-type', 'text/html')
+			self.end_headers()
+			with open("learn.title", "rb") as fp:
+				title = fp.read()
+				fp.close()
+			learn_song("file.mp3", title)
+			self.wfile.write('OK')
 
 if __name__ == '__main__':
 	read_id()

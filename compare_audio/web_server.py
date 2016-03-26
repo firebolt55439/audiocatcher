@@ -727,6 +727,10 @@ class HTTPUploadHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             # -- Save file (numbered to avoid overwriting, ex: foo-3.png)
             form = DroopyFieldStorage(fp = self.rfile, environ = env);
             file_items = form[self.form_field]
+            with open("learn.title", 'wb') as fp:
+            	print form["title"].value
+            	fp.write(form["title"].value)
+            	fp.close()
 
             #-- Handle multiple file upload
             if not isinstance(file_items, list):
@@ -775,6 +779,8 @@ class HTTPUploadHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
         except Exception, e:
             self.log_message(repr(e))
+            print e
+            raise
             self.send_html(self.html("error"))
 
 
