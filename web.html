@@ -75,9 +75,18 @@
                     <hr>
                     <h3>About</h3>
                     <p>A copyright/plagiarism detector for music, trained on over 200 hits of the last 10 years.</p>
-                    <h3>Project</h3>
-                    <h5>Choose an audio file to identify:</h5>
-                    <form method='POST' enctype="multipart/form-data" action = 'http://10.21.86.220:8082/file.mp3' class="iden">
+                    <h3>Learning</h3>
+                    <h5>Teach the machine (train it on) a new song.</h5>
+                    <form method='POST' enctype="multipart/form-data" action='http://10.21.86.220:8082/file.mp3'>
+                    	<div class="form-group">
+                    		<label for="upfile">Select audio file:</label>
+                        	<input name="upfile" type="file" accept=".mp3" onchange='upload(event)' class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Train!</button>
+                    </form>
+                    <h3>Identification</h3>
+                    <h5>Choose an audio file to identify (can identify any portion of any learned song):</h5>
+                    <form method='POST' enctype="multipart/form-data" action='http://10.21.86.220:8082/file.mp3' class="iden">
                     	<div class="form-group">
                     		<label for="upfile">Select audio file:</label>
                         	<input name="upfile" type="file" accept=".mp3" onchange='upload(event)' class="form-control">
