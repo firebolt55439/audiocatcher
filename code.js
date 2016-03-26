@@ -1,28 +1,23 @@
-var stoprec;
+
+var recorder;
 var file;
+
 function record() {
-    var context = window.audioContext || window.webkitAudioContext;
+    var context = new AudioContext();
     var promise = navigator.mediaDevices.getUserMedia({audio: true, video: false});
-    var source;
     promise.then(function (stream) {
-                 var recorder = new Recorder(stream, this.config);
-                 var media = navigator.mediaDevices.getUserMedia();
+                 recorder = new Recorder(context.createMediaStreamSource(stream));
                  recorder.record();
-//                 stoprec = function(){
-//                 console.log("HELLOWORLD!")
-//                 recorda.stop();
-//                 recorda.exportWAV(this.config.callback(), WAV)
-//                 recorda.encodeAfterRecorder();
-//                 recorda.forceDownload(blob, output)
-//                 }
-//                 })
+                 })
     
     promise.catch(function (error) { console.log("smth wnt wrng wit get mic") }); //Mozeela
 }
 
-function stoprecord() {
-    console.log("HELLO!");
-    stoprec();
+function stop() {
+    recorder.stop();
+    recorder.exportWAV(this.config.callback(), WAV)
+    recorder.encodeAfterRecorder();
+    recorder.forceDownload(blob, output)
 }
 
 function upload(event) {
