@@ -220,6 +220,9 @@ successtmpl = '''
 <html>
 <head><title> %(successtitle)s </title>
 ''' + style + '''
+<script>
+setTimeout(history.go(-1), 1000);
+</script>
 </head>
 <body>
 <div class="container">
@@ -229,6 +232,7 @@ successtmpl = '''
     <a href="/"> %(another)s </a>
   </div>
 </div>
+<h4>(Redirecting you back)</h4>
 ''' + userinfo + '''
 </div>
 </body>
