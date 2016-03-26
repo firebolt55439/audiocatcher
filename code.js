@@ -60,7 +60,22 @@ function upload(event) {
     file = input.files[0];
     console.log(file.lastModifiedDate);
 }
-function click(){}
+function click(){
+
+    $.ajax({
+    url: 'http://10.21.86.220:8081/file.mp3',
+    data: $('#file').attr('files'),
+    cache: false,
+    contentType: 'multipart/form-data',
+    processData: false,
+    type: 'POST',
+    success: function(data){
+        alert(data);
+    }
+});
+
+
+}
 
 
 function soundcloud() {}
