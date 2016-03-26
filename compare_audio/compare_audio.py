@@ -4,3 +4,123 @@ for similarity, and returns a number indicating
 degree of similarity.
 """
 
+import os, sys
+import json
+import fp
+import pipes
+import subprocess
+import pickle
+
+EP_PATH = './echoprint-codegen'
+API_HOST = 'http://localhost:8080/'
+ID_FNAME = 'id.save'
+MAP_FNAME = 'map.save'
+
+songMap = {}
+lastId = "songid1"
+
+def save_id():
+	with open(ID_FNAME, 'wb') as fp:
+		fp.write(lastId)
+		fp.close()
+
+def save_map():
+	with open(MAP_FNAME, 'wb') as fp:
+		pickle.dump(songMap, fp)
+		fp.close()
+
+def read_id():
+	global lastId
+	try:
+		with open(ID_FNAME, 'rb') as fp:
+			lastId = fp.read()
+			fp.close()
+	except IOError:
+		lastId = "songid1"
+		pass
+
+def read_map():
+	global songMap
+	try:
+		with open(MAP_FNAME, 'rb') as fp:
+			songMap = pickle.load(fp)
+			fp.close()
+	except IOError:
+		songMap = {}
+		pass
+
+def learn_song(filename, description):
+	global lastId
+	cmd = '{} "{}" > song.out'.format(EP_PATH, filename)
+	with open('song.out', 'rb') as fp:
+		subprocess.call(cmd, shell=True, stdout=fp)
+		os.system(cmd)
+		data = fp.read()
+		fp.close()
+	data = json.loads(data.strip())[0]
+	#print json.dumps(data, indent=3)
+	try:
+		fp_code = data["code"]
+	except KeyError:
+		print "Could not learn song with title: {}".format(description)
+		return
+	length = data["metadata"]["duration"]
+	cmd = 'curl http://localhost:8080/ingest -d "fp_code={}&track_id={}&length={}&codever=4.12" > /dev/null'.format(fp_code, lastId, length)
+	songMap[lastId] = description
+	lastId = 'songid' + str(int(lastId.split('songid')[1]) + 1)
+	save_id()
+	save_map()
+	os.system(cmd)
+	print "Learned song with title: {}".format(description)
+
+def identify_audio(filename):
+	"""
+	Identify a given song.
+	You can provide a filename of some audio. 
+	You must provide start time to end time for
+	scanning.
+	"""
+	cmd = '{} "{}" 0 20 > song.out'.format(EP_PATH, filename)
+	os.system(cmd)
+	with open('song.out', 'rb') as fp:
+		data = fp.read()
+		fp.close()
+	data = json.loads(data.strip())[0]
+	print json.dumps(data, indent=3)
+	fp_code = data["code"]
+	cmd = 'curl -S http://localhost:8080/query?fp_code={} > song.out'.format(fp_code)
+	os.system(cmd)
+	with open('song.out', 'rb') as fp:
+		data = fp.read()
+		fp.close()
+	data = json.loads(data.strip())
+	print json.dumps(data, indent=3)
+	if data["match"]:
+		print "SUCCESSFUL MATCH!"
+		print "Matched to: {}".format(songMap[str(data["track_id"])])
+
+if __name__ == '__main__':
+	read_id()
+	read_map()
+	if len(sys.argv) > 1 and sys.argv[1] == "--learn":
+		fp.erase_database(True) # clear database on start
+		try: os.unlink(ID_FNAME)
+		except OSError: pass
+		try: os.unlink(MAP_FNAME)
+		except OSError: pass
+		learn_song('test1.mp3', "FOB - My Songs Know What You Did In The Dark")
+		identify_audio('test1.mp3')
+		#identify_audio('test1.mp3')
+	
+		# Now teach it songs for real.
+		base_path = "/Users/sumer/Downloads/songs/"
+		for file in os.listdir(base_path):
+			if file.endswith(".mp3") and os.path.isfile(base_path + file):
+				fname = os.path.normpath(base_path + file)	
+				print fname
+				title = file.split('.mp3')[0]
+				learn_song(fname, title)
+	print songMap.keys()
+	print songMap['songid1']
+	identify_audio('test1.mp3')
+	identify_audio("/Users/sumer/Downloads/songs/Katy Perry - Roar (Official).mp3")
