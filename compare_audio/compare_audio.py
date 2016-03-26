@@ -5,11 +5,15 @@ degree of similarity.
 """
 
 import os, sys
+import cgi
 import json
 import fp
 import pipes
 import subprocess
 import pickle
+from os import curdir
+from os.path import join as pjoin
+from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 EP_PATH = './echoprint-codegen'
 API_HOST = 'http://localhost:8080/'
@@ -80,7 +84,7 @@ def identify_audio(filename):
 	You must provide start time to end time for
 	scanning.
 	"""
-	cmd = '{} "{}" 0 20 > song.out'.format(EP_PATH, filename)
+	cmd = '{} "{}" > song.out'.format(EP_PATH, filename)
 	os.system(cmd)
 	with open('song.out', 'rb') as fp:
 		data = fp.read()
@@ -97,7 +101,28 @@ def identify_audio(filename):
 	print json.dumps(data, indent=3)
 	if data["match"]:
 		print "SUCCESSFUL MATCH!"
-		print "Matched to: {}".format(songMap[str(data["track_id"])])
+		title = songMap[str(data["track_id"])]
+		print "Matched to: {}".format(title)
+		return {
+			"success": True,
+			"match": title,
+			"score": data["score"]
+		};
+	else:
+		return {
+			"success": False
+		};
+
+class StoreHandler(BaseHTTPRequestHandler):
+    store_path = pjoin(curdir, 'file.mp3')
+
+    def do_GET(self):
+    	print self.path
+        if self.path == '/identify':
+			self.send_response(200)
+			self.send_header('Content-type', 'text/json')
+			self.end_headers()
+			self.wfile.write(json.dumps(identify_audio("file.mp3")))
 
 if __name__ == '__main__':
 	read_id()
@@ -122,5 +147,14 @@ if __name__ == '__main__':
 				learn_song(fname, title)
 	print songMap.keys()
 	print songMap['songid1']
-	identify_audio('test1.mp3')
-	identify_audio("/Users/sumer/Downloads/songs/Katy Perry - Roar (Official).mp3")
+	#identify_audio('test1.mp3')
+	#identify_audio("/Users/sumer/Downloads/songs/Katy Perry - Roar (Official).mp3")
+	#identify_audio("/Users/sumer/Downloads/lHTmeklt.mp3")
+	
+	# Now start serving.
+	try:
+		server = HTTPServer(('', 8081), StoreHandler)
+		server.serve_forever()
+	except KeyboardInterrupt:
+		os._exit(1)
+	
