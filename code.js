@@ -8,14 +8,14 @@ function record() {
                  var recorder = new Recorder(stream, this.config);
                  var media = navigator.mediaDevices.getUserMedia();
                  recorder.record();
-                 stoprec = function(){
-                 console.log("HELLOWORLD!")
-                 recorda.stop();
-                 recorda.exportWAV(this.config.callback(), WAV)
-                 recorda.encodeAfterRecorder();
-                 recorda.forceDownload(blob, output)
-                 }
-                 })
+//                 stoprec = function(){
+//                 console.log("HELLOWORLD!")
+//                 recorda.stop();
+//                 recorda.exportWAV(this.config.callback(), WAV)
+//                 recorda.encodeAfterRecorder();
+//                 recorda.forceDownload(blob, output)
+//                 }
+//                 })
     
     promise.catch(function (error) { console.log("smth wnt wrng wit get mic") }); //Mozeela
 }
