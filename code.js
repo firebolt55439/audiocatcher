@@ -15,12 +15,12 @@ function record() {
 //                 recorda.encodeAfterRecorder();
 //                 recorda.forceDownload(blob, output)
 //                 }
-//                 })
+                 })
     
     promise.catch(function (error) { console.log("smth wnt wrng wit get mic") }); //Mozeela
 }
 
-function stoprecord() {
+function stop() {
     console.log("HELLO!");
     stoprec();
 }
