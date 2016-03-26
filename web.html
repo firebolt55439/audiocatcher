@@ -82,6 +82,10 @@
                     		<label for="upfile">Select audio file:</label>
                         	<input name="upfile" type="file" accept=".mp3" onchange='upload(event)' class="form-control">
                         </div>
+                        <div class="form-group">
+                        	<label for="title">Enter song title:</label>
+                        	<input name="title" type="text">
+                        </div>
                         <button type="submit" class="btn btn-primary">Train!</button>
                     </form>
                     <h3>Identification</h3>
@@ -94,11 +98,11 @@
                         <button type="submit" class="btn btn-primary" value="Submit!" onclick"click(); return false;">Submit!</button>
                     </form>
                     
-                    <h5>Record your own audio (DEPRECATED)</h5>
+                    <!--<h5>Record your own audio (EXPERIMENTAL)</h5>
                     <button id="record" onclick="record()" class="show"> Record</button>
                     <button id="stop" onclick="stop()" class="hide"> Stop recording</button>
                     <a id="downlink" class="hide" onclick="showFile()">Play audio</a>
-                    <!--<button onclick="upload(event)" >Upload audio file</button> -->
+                    <button onclick="upload(event)" >Upload audio file</button> -->
 
                     <h3>Members</h3>
                     <p>Akhil A., Praveen B., Vijay B., Shreyas C., and Sumer K.</p>
